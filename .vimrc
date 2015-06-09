@@ -1,4 +1,4 @@
-" /usr/share/vim/vim74/
+"/usr/share/vim/vim74/
 
 :set term=xterm-256color
 :set t_Co=256
@@ -34,7 +34,10 @@
 :hi IndentGuidesOdd ctermbg = grey
 :hi IndentGuidesEven ctermbg = darkgrey
 :let g:indent_guides_start_level = 1
-:let g:indent_guides_guide_size = 4
+:let g:indent_guides_guide_size = 1
+
+" Gutter bar color
+:hi SignColumn ctermbg = black
 
 " Syntastic
 :let g:syntastic_always_populate_loc_list = 1
@@ -46,6 +49,11 @@
 ":let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'pylint']
 " Disable syntastic for Java
 :let g:syntastic_java_checkers = ['']
+
+" Git gutter
+":let g:gitgutter_sign_column_always = 1
+":let g:gitgutter_highlight_lines = 1
+:let g:gitgutter_escape_grep = 1
 
 " Syntastic error color
 :hi SpellBad ctermfg=0 ctermbg=183
@@ -76,7 +84,7 @@
 
 :let mapleader = ","
 
-:nmap <C-n><C-n> :set invnumber<CR>
+:nmap <C-n><C-n> :set invnumber<CR>:IndentGuidesToggle<CR>
 
 " Print the current filename + path
 ":nmap <C-n> :! echo %<CR>
@@ -101,8 +109,8 @@
 :nmap <C-k>f :e<Space><C-d>
 
 " Find a folder or a file, add * at the end if necessary
-:let g:unite_ignore_source_files = ['*.odg', '*.db', '*.pdf', '*.dot']
-:nmap <C-k>a  :Unite file_rec<CR>
+:let g:unite_ignore_source_files = ['.git*', '.git/', '*.odg', '*.db', '*.pdf', '*.dot']
+:nmap <C-k>a  :Unite file_rec<CR>i
 ":nmap <C-k>a  :Find *
 :nmap <C-k>   :Find *
 
@@ -206,7 +214,7 @@
 :nmap <F7> <C-]>
 
 " Open the current file with kate
-:nmap <F8> :! kate %<CR>
+:nmap <F8> :! medit %<CR>
 
 ":nmap <F8> /\v^(\w+\s+)?\w+::\w+\(.*\)<CR>
 
@@ -232,6 +240,7 @@
 
 :nmap <C-l> :botright lopen<CR>
 
+:inoremap jj <Esc>
 
 " Completion
 :inoremap <Tab> <C-R>=CleverTab()<CR>

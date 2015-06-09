@@ -17,6 +17,9 @@ PATH="/usr/local/bin:$PATH"
 
 export PATH=$PATH:$HOME/code/lumberjack
 export PATH=$PATH:$HOME/code/hourglass
+export PATH=$PATH:/opt/toolchains/clang-format-3.7
+
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
 
 source ~/.bash_aliases
 
@@ -74,15 +77,28 @@ setopt  complete_aliases
 # generation, etc.  (An initial unquoted `~' always produces named directory
 # expansion.)
 setopt  extended_glob
+# If this is set, zsh sessions will append their history list to the history file,
+# rather than replace it. Thus, multiple parallel zsh sessions will all have th 
+# new entries from their history lists added to the history file, in the order that
+# they exit. The file will still be periodically re-written to trim it when the
+# number of lines grows 20% beyond the value specified by $SAVEHIST.
+setopt  append_history
 # If a new command line being added to the history list duplicates an older one,
 # the older command is removed from the list (even if it is not the previous event).
 setopt  hist_ignore_all_dups
 #  Remove command lines from the history list when the first character on the line
 #  is a space, or when one of the expanded aliases contains a leading space.
 setopt  hist_ignore_space
+# Save each command’s beginning timestamp (in seconds since the epoch) and 
+# the duration (in seconds) to the history file.
+setopt  extended_history
+# Whenever the user enters a line with history expansion, don’t execute the line
+# directly; instead, perform history expansion and reload the line into the 
+# editing buffer.
+setopt  hist_verify
 # This  option  both  imports new commands from the history file, and also
 # causes your typed commands to be appended to the history file
-setopt  share_history
+#setopt  share_history
 setopt  noflowcontrol
 # When listing files that are possible completions, show the type of each file
 # with a trailing identifying mark.
@@ -109,6 +125,7 @@ HISTFILESIZE=65536  # search this with `grep | sort -u`
 HISTSIZE=4096
 SAVEHIST=4096
 REPORTTIME=60       # Report time statistics for progs that take more than a minute to run
+
 # utf-8 in the terminal, will break stuff if your term isn't utf aware
 #-------------------------------------------------------------------------------
 export LANG=en_US.UTF-8

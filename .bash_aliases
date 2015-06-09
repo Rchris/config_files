@@ -29,8 +29,6 @@ alias hg_diff_all='hg st | hg diff | pygmentize -l diff | less'
 
 alias watchdmesg='watch "dmesg | tail -n50"'
 
-alias mc='mc --skin=/usr/share/mc/skins/modarcon16-defbg-chris.ini'
-
 alias memcheck='valgrind --tool=memcheck --track-origins=yes --read-var-info=yes --log-file=valgrind.out '
 
 alias memcheck_xml='valgrind --tool=memcheck --track-origins=yes --read-var-info=yes --log-file=valgrind.out --xml=yes --xml-file=valgrind.xml '
@@ -39,6 +37,7 @@ alias clock='tty-clock -n -C 7 -c'
 
 alias lumberjack_adb='lumberjack --config ~/.config/lumberjack/settings/adb_logcat.json'
 alias lumberjack_stb='lumberjack --config ~/.config/lumberjack/settings/stb_log.json'
+
 
 # Expected in purple
 # Passed and success in green
@@ -52,9 +51,12 @@ function ctestColor()
       -e 's/.*\bPassed.*/\x1b[0;32m&\x1b[0m/' \
       -e 's/.*\bSucces.*/\x1b[0;32m&\x1b[0m/' \
       -e 's/.*\bError:.*/\x1b[0;31m&\x1b[0m/' \
-      -e 's/.*\bFailed.*/\x1b[0;31m&\x1b[0m/' \
+      -e 's/.*\bfailed.*/\x1b[0;31m&\x1b[0m/' \
+      -e 's/.*\bSegmentation.*/\x1b[0;36m&\x1b[0m/' \
       -e 's/.*\bBEGINNING.*/\x1b[0;33m&\x1b[0m/' \
+      -e 's/.*\bNot Run.*/\x1b[0;33m&\x1b[0m/' \
       -e 's/.*\bInfo:.*/\x1b[0;34m&\x1b[0m/' \
+      -e 's/.*\ResourceWarning*/\x1b[1;34m&\x1b[0m/' \
       -e 's/.*\bWARN.*/\x1b[1;34m&\x1b[0m/'
 }
 
@@ -191,7 +193,6 @@ function extract()
        echo "'$1' is not a valid file!"
    fi
 }
-
 function runCtest()
 {
     if [[ -z "$@" ]]; then

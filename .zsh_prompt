@@ -212,6 +212,8 @@ function +pr-prompt() {
     [[ -w $PWD ]] && v_pwd+=( ${blue} ) || v_pwd+=( ${yellow} )
     v_pwd+=( ${i_pwd} )
     v_pwd+=( ${gray}\) )
+    # Add the time
+    v_pwd+=( ${reset}${white}\ $(date +"%H:%M:%S")\ ${gray} )
     v_pwd+=( ${reset} )
     pr_com[pwd]=${(j::)v_pwd}${reset}
 
