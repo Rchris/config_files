@@ -15,6 +15,8 @@
 
 PATH="/usr/local/bin:$PATH"
 
+export PATH=$PATH:$HOME/code/DEBU/scripts
+export PATH=$PATH:$HOME/code/DEBU/repo
 export PATH=$PATH:$HOME/code/lumberjack
 export PATH=$PATH:$HOME/code/hourglass
 export PATH=$PATH:/opt/toolchains/clang-format-3.7
@@ -22,11 +24,6 @@ export PATH=$PATH:/opt/toolchains/clang-format-3.7
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
 
 source ~/.bash_aliases
-
-# Source Custom Configurations
-for fname in $(find ~/dotfiles/custom-configs -name "*.sh*"); do
-    source $fname
-done
 
 # Source the prompt
 #-------------------------------------------------------------------------------
@@ -50,17 +47,44 @@ source /usr/share/autojump/autojump.zsh
 # General Settings
 # Autoload tab completion
 #-------------------------------------------------------------------------------
-autoload -U compinit
+autoload -Uz compinit
 compinit -C
-# Modify default zsh directory coloring on ls commands
-#-------------------------------------------------------------------------------
-export LSCOLORS=gxfxcxdxbxegedabagacad
+
 # Completion settings
 #-------------------------------------------------------------------------------
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*' list-colors "$LS_COLORS"
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' menu select=2 eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+
+## Listing behaviour
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' force-list always
+zstyle ':completion:*' last-prompt true
+zstyle ':completion:*' list-dirs-first true
+zstyle ':completion:*' list-grouped true
+zstyle ':completion:*' list-packed true
+zstyle ':completion:*' list-separator '--'
+zstyle ':completion:*' separate-sections true
+
+## Menu behaviour
+zstyle ':completion:*' menu yes select
+zstyle ':completion:*' insert-unanbiguous false
+
+### Show more information for matches
+zstyle ':completion:*' extra-verbose true
+zstyle ':completion:*' file-list always
+zstyle ':completion:*' strip-comments false
+
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 zstyle -e ':completion:*:(ssh|scp|sshfs|ping|telnet|nc|rsync):*' hosts '
     reply=( ${=${${(M)${(f)"$(<~/.ssh/config)"}:#Host*}#Host }:#*\**} )'
+
 # Set the desired setup options man zshoptions
 #-------------------------------------------------------------------------------
 # If command can't be executed, and command is name of a directory, cd to directory
