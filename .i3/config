@@ -12,7 +12,6 @@
 #Available Modifiers:
 # Mod1-Mod5, Shift, Control, see xmodmap
 
-
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -41,9 +40,19 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # audio
+bindsym XF86AudioMedia exec spotify
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
+
+# Calculator
+bindsym XF86Calculator exec gnome-calculator
+
+# Print screen
+bindsym XF86 exec xfce4-screenshooter
+
+# Shutdown
+bindsym XF86PowerOff exec--no-startup-id systemctl poweroff -i, mode "default"
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -b -l 10 -i
@@ -109,14 +118,14 @@ bindsym $mod+space focus mode_toggle
 
 set $WS1 1: mail
 set $WS2 2: www
-set $WS3 3
-set $WS4 4
+set $WS3 3: dev
+set $WS4 4: dev
 set $WS5 5: skype
-set $WS6 6
-set $WS7 7
-set $WS8 8
-set $WS9 9
-set $WS10 10
+set $WS6 6: dev
+set $WS7 7: jenkins
+set $WS8 8: music
+set $WS9 9: gerrit
+set $WS10 10: jenkins
 
 # switch to workspace
 bindsym $mod+F1 workspace $WS1
@@ -146,6 +155,7 @@ bindsym $mod+Shift+F10 move container to workspace $WS10
 assign [class="^Icedove$"] $WS1
 assign [class="^Iceweasel$"] $WS2
 assign [class="^Skype$"] $WS5
+assign [class="^Spotify$"] $WS8
 
 # switch to previous workspace
 bindsym $mod+Tab workspace back_and_forth

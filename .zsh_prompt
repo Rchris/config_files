@@ -120,7 +120,9 @@ function +pr-mode-full() {
     return_status_width=3 # We will take up three spaces to display the return code (✔)
 
     # Set the text string that will be used to fill the width of the terminal filler
-    filler="${gray}${(l:$(( $COLUMNS - $info_line_width - $return_status_width + $venv_shim + $npm_shim))::─:)}${reset}"
+    # filler="${gray}${(l:$(( $COLUMNS - $info_line_width - $return_status_width + $venv_shim + $npm_shim))::─:)}${reset}"
+    filler="%(0?.${blue}.${red})"
+    filler+="${(l:$(( $COLUMNS - $info_line_width - $return_status_width + $venv_shim + $npm_shim))::─:)}${reset}"
     infoline[-1]=( ${filler} ${infoline[-1]} )
 
     # --------------------------

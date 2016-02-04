@@ -5,8 +5,11 @@
 setxkbmap ch
 
 xrandr --output DP-2 --left-of DP-1
+# xrandr --output VGA-1 --left-of DP-1
 xrandr --output DP-1 --mode 1920x1200
-xrandr --output DP-2 --mode 1280x1024
+# xrandr --output DP-2 --mode 1280x1024
+xrandr --output DP-2 --mode 1920x1200
+# xrandr --output VGA-1 --mode 1920x1080
 
 # Wallpaper
 feh --bg-fill  ~/Pictures/debian_1920x1080.png

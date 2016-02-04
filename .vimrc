@@ -1,5 +1,7 @@
 "/usr/share/vim/vim74/
 
+:set clipboard=unnamedplus
+
 :set term=xterm-256color
 :set t_Co=256
 
