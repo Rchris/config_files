@@ -1,0 +1,32 @@
+# Install pathogen
+mkdir -p ~/.vim/autoload ~/.vim/bundle; \
+curl -so ~/.vim/autoload/pathogen.vim \
+    https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+
+# Next you need to add this to your ~/.vimrc:
+execute pathogen#infect()
+
+git clone https://github.com/scrooloose/syntastic.git
+git clone https://github.com/Valloric/YouCompleteMe.git
+git submodule update --init --recursive
+sudo aptitude install libclang1-3.4
+#git clone https://github.com/wincent/Command-T.git
+git clone https://github.com/vim-scripts/vcscommand.vim.git
+#git clone https://github.com/vim-scripts/TagHighlight.git # NO
+#git clone https://github.com/xolox/vim-misc.git # NO
+#git clone https://github.com/xolox/vim-easytags.git # NO
+git clone https://github.com/justinmk/vim-syntax-extra.git
+#git clone https://github.com/octol/vim-cpp-enhanced-highlight.git # To be tested
+git clone https://github.com/yssl/QFEnter.git
+git clone https://github.com/sk1418/QFGrep.git
+git clone --recursive http://github.com/davidhalter/jedi-vim
+git clone https://github.com/Shougo/unite.vim.git
+git clone https://github.com/airblade/vim-gitgutter.git
+git clone https://github.com/nathanaelkane/vim-indent-guides.git
+git clone https://github.com/mbbill/undotree.git
+git clone https://github.com/bling/vim-airline.git
+git clone https://github.com/rking/ag.vim.git
+
+
+# https://github.com/bocadillodeatun/vim_configs
+
