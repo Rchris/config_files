@@ -21,6 +21,8 @@
 " Enable syntax highlighting
 :syntax on
 
+":set foldmethod=syntax
+
 " Case insensitove search
 :set ignorecase
 
@@ -93,16 +95,19 @@
 
 :nmap <S-Tab> :bNext<CR>
 
-" Grep a user input patern in a specific folder
+" Grep a user input pattern in a specific folder
 :nmap <C-G> :GrepPaternFolder<Space>
 
-" Grep the patern under the cursor in a specific folder
+" Grep the pattern under the cursor in a specific folder
 :nmap <C-F>f :GrepFolder<Space>
+
+" Grep the patern under the cursor in a specific folder
+:nmap <C-F> :Ag<Space><cword><CR>
 
 " Find the text under the cursor
 "  grep -rin --include '*.cpp' "TEXT" .
 "  grep -rin --include=*.{cpp,h} "TEXT" .
-:nmap <C-F> :execute "cs find t " . expand("<cword>") <Bar> botright copen <CR>
+:nmap <C-F>c :execute "cs find t " . expand("<cword>") <Bar> botright copen <CR>
 
 " Find the symbol under the cursor, find usage
 :nmap <C-U> :execute "cs find s " . expand("<cword>") <Bar> botright copen <CR>
@@ -141,15 +146,28 @@
 " Revert Color to default when leaving Insert Mode
 ":autocmd InsertLeave * highlight  CursorLine ctermbg=DarkCyan ctermfg=None
 
-:hi User1 ctermfg=0   ctermbg=Yellow      guifg=#ffdad8  guibg=#880c0e
-:hi User2 ctermfg=255 ctermbg=DarkRed     guifg=#000000  guibg=#F4905C
-:hi User3 ctermfg=255 ctermbg=DarkMagenta guifg=#292b00  guibg=#f4f597
-:hi User4 ctermfg=0   ctermbg=Grey        guifg=#112605  guibg=#aefe7B
-:hi User5 ctermfg=0   ctermbg=DarkGrey    guifg=#051d00  guibg=#7dcc7d
-:hi User7 ctermfg=255 ctermbg=52          guifg=#ffffff  guibg=#880c0e gui=bold
-:hi User8 ctermfg=255 ctermbg=DarkBlue    guifg=#ffffff  guibg=#5b7fbb
-:hi User9 ctermfg=255 ctermbg=52          guifg=#ffffff  guibg=#810085
-:hi User0 ctermfg=255 ctermbg=52          guifg=#ffffff  guibg=#094afe
+" Vimdiff colors
+:highlight DiffAdd    ctermbg=Black      gui=NONE  guifg=bg  guibg=Green
+" :highlight DiffAdd    ctermbg=22 gui=NONE  guifg=bg  guibg=Green
+:highlight DiffDelete ctermbg=52         gui=NONE  guifg=bg  guibg=Red
+:highlight DiffChange ctermbg=53         gui=NONE  guifg=bg  guibg=Yellow
+":highlight DiffText   ctermbg=57         gui=NONE  guifg=bg  guibg=Magenta
+:highlight DiffText   ctermbg=DarkRed gui=NONE  guifg=bg  guibg=Magenta
+
+" Editor colors
+:highlight User1 ctermfg=0   ctermbg=Yellow      guifg=#ffdad8  guibg=#880c0e
+:highlight User2 ctermfg=255 ctermbg=DarkRed     guifg=#000000  guibg=#F4905C
+:highlight User3 ctermfg=255 ctermbg=DarkMagenta guifg=#292b00  guibg=#f4f597
+:highlight User4 ctermfg=0   ctermbg=Grey        guifg=#112605  guibg=#aefe7B
+:highlight User5 ctermfg=0   ctermbg=DarkGrey    guifg=#051d00  guibg=#7dcc7d
+:highlight User7 ctermfg=255 ctermbg=52          guifg=#ffffff  guibg=#880c0e gui=bold
+:highlight User8 ctermfg=255 ctermbg=DarkBlue    guifg=#ffffff  guibg=#5b7fbb
+:highlight User9 ctermfg=255 ctermbg=52          guifg=#ffffff  guibg=#810085
+:highlight User0 ctermfg=255 ctermbg=52          guifg=#ffffff  guibg=#094afe
+
+" Fold
+:highlight Folded      ctermfg=Blue    ctermbg=Black       guibg=Blue   guifg=DarkGrey
+:highlight FoldColumn  ctermfg=White   ctermbg=DarkGrey    guibg=White  guifg=DarkGrey
 
 " Always display the status line
 :set laststatus=2
@@ -205,6 +223,7 @@
 " List all the changes
 ":nmap <F3> :changes<CR>
 
+
 " Switch between source and header files (in the same folder)
 :nmap <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
@@ -242,10 +261,17 @@
 
 :nmap <C-l> :botright lopen<CR>
 
+:nmap <C-a> :Gstatus<CR>
+:nmap <C-t> :Gitv<CR>
+
+" Highlight the word under the cursor
+:nmap <C-h> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+
+
 :inoremap jj <Esc>
 
 " Completion
-:inoremap <Tab> <C-R>=CleverTab()<CR>
+" :inoremap <Tab> <C-R>=CleverTab()<CR>
 
 :set complete=.,w,b,u,t,i,d
 :set completeopt-=preview

@@ -26,6 +26,7 @@ git clone https://github.com/nathanaelkane/vim-indent-guides.git
 git clone https://github.com/mbbill/undotree.git
 git clone https://github.com/bling/vim-airline.git
 git clone https://github.com/rking/ag.vim.git
+git clone https://github.com/gregsexton/gitv.git
 
 
 # https://github.com/bocadillodeatun/vim_configs

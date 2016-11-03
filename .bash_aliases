@@ -9,6 +9,12 @@ fi
 alias ack="ack-grep -r --color-filename='magenta' --color-line='green' --color-match='bold red'"
 alias acki="ack-grep -r --color-filename='magenta' --color-line='green' --color-match='bold red' -i"
 
+# Cat hightligh
+alias cath="ack-grep --color-filename='magenta' --color-line='green' --color-match='bold red' -i --passthru"
+
+# alias ag="ag -r --color-filename='magenta' --color-line='green' --color-match='bold red'"
+# alias agi="ag -r --color-filename='magenta' --color-line='green' --color-match='bold red' -i"
+
 alias ll='ls -alF'
 alias lh='ls -alh'
 alias la='ls -A'
@@ -48,6 +54,12 @@ alias make_silent='make -j8 > /dev/null'
 alias make_install_silent='make install -j8 > /dev/null'
 
 alias current_test='/home/crayroud/scripts/get_current_test.sh'
+
+alias current_spotify='xprop -name "Spotify Premium - Linux Preview" _NET_WM_ICON_NAME | cut -d "-" -f 2 | cut -d "\"" -f 1'
+
+alias adb_nfs='adb shell "/data/local/busybox mount -t nfs -o nolock -o async 192.168.2.1:/srv/nfs /data/local/nfs"'
+
+alias setup_android_build='source /opt/toolchains/android_L_setup.sh ; source build/envsetup.sh ; lunch aosp_sprint-userdebug'
 
 # Expected in purple
 # Passed and success in green
@@ -115,6 +127,11 @@ function sedColor()
     sed -u -e 's/.*\b'$1'.*/\x1b'$style''$color'&\x1b[0m/'
 }
 
+function highlight()
+{
+    sed -u -e 's/.*\b'$1'.*/\x1b[1;33m&\x1b[0m/'
+}
+
 function replaceAllOccInFiles()
 {
     # Start from the current folder
@@ -155,8 +172,7 @@ function wcthg()
   watch -c --no-title cthg
 }
 
-
-function cdls()
+function cl()
 {
   cd $1 ; ls
 }
@@ -199,14 +215,15 @@ function extract()
        echo "'$1' is not a valid file!"
    fi
 }
+
 function runCtest()
 {
     if [[ -z "$@" ]]; then
         ctest -N
     elif [ "$#" -eq 1 ]; then
-        ctest -R $1 -V | ctestColor ; test ${PIPESTATUS[0]} -eq 0
+        set -o pipefail ; ctest -R $1 -V | ctestColor
     else
-        ctest -R $1 -V  --timeout $2 | ctestColor ; test ${PIPESTATUS[0]} -eq 0
+        set -o pipefail ; ctest -R $1 -V  --timeout $2 | ctestColor
     fi
 }
 
@@ -237,15 +254,15 @@ function build_androidL()
 {
     # TODO verbose or not
 
-    time $TODO/build/build_androidtv
+    time ./vendor/TODO/build/build_androidtv
     if [ $? -ne 0 ]
     then
         notify-send -t 0 -u critical "Build Android L failed"
         echo "Last step:"
-        cat $TODO/build/build_log/current_step
+        cat vendor/TODO/build/build_log/current_step
         echo "Logs folder:"
-        echo "$TODO/build/build_log/log/"
-        multitail -cS gtv -iw "$TODO/build/build_log/log/build_*" 1
+        echo "vendor/TODO/build/build_log/log/"
+        multitail -cS gtv -iw "vendor/TODO/build/build_log/log/build_*" 1
     else
         notify-send -t 0 -u normal "Build Android L success"
     fi;
@@ -262,7 +279,7 @@ function wizard_click_next()
 
 function test_android()
 {
-    python3 -u ../install/android_full_component_sdk_code/test/launch_tests.py --timeout 150 --verbose --test $1 $2 | ctestColor
+    python3 -u ../install/android_full_component_sdk_code/test/launch_tests.py --timeout 5000 --verbose --test $1 $2 | ctestColor
 }
 
 function test_android_all()
@@ -286,7 +303,20 @@ function man()
 
 function adb_root()
 {
-    adb connect $1 ; adb root ; adb connect $1 ; adb remount
+    adb connect $1 ; adb root ; adb connect $1 ; adb remount;
+    adb connect $1 ; adb root ; adb connect $1 ; adb remount;
+    adb connect $1 ; adb root ; adb connect $1 ; adb remount;
+    adb shell "setenforce 0" ; adb shell "getenforce";
+}
+
+function adb_push_ta()
+{
+    adb push $1 /system/etc/firmware/ta/$2 ; adb shell sync ;
+}
+
+function adb_push_lib()
+{
+    adb push $1 /vendor/lib/$2 ; adb shell sync ;
 }
 
 function ftype()
@@ -297,6 +327,16 @@ function ftype()
 function fvi()
 {
     find . -iname "$1" -exec vi {} \;
+}
+
+function pdf_grep_local()
+{
+    find . -iname '*.pdf' -exec pdfgrep -n -H "$1" {} \;
+}
+
+function for_all_folders()
+{
+    for d in ./*/ ; do (cd "$d" && pwd && "$@"); done
 }
 
 # or command: alias
