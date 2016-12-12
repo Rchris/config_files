@@ -53,7 +53,7 @@ alias b='cd ..'
 alias make_silent='make -j8 > /dev/null'
 alias make_install_silent='make install -j8 > /dev/null'
 
-alias current_test='/home/crayroud/scripts/get_current_test.sh'
+alias current_test='$HOME/scripts/get_current_test.sh'
 
 alias current_spotify='xprop -name "Spotify Premium - Linux Preview" _NET_WM_ICON_NAME | cut -d "-" -f 2 | cut -d "\"" -f 1'
 
