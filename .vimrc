@@ -12,6 +12,9 @@
 ":colorscheme delek
 ":colorscheme darkblue
 
+" Disable compatible mode
+:set nocp
+
 :execute pathogen#infect()
 
 :filetype on
@@ -82,9 +85,6 @@
 
 " Highligh all search matches
 :set hlsearch
-
-" Disable compatible mode
-:set nocp
 
 :let mapleader = ","
 
@@ -178,7 +178,7 @@
 :let g:airline_right_sep =''
 :let g:airline_detect_modified = 1
 :let g:airline_theme='bubblegum'
-":let g:airline_theme='kalisi'
+":let g:airline_theme='base16-spacemacs'
 
 ":set statusline=
 ":set statusline+=%1*\ %{@/}\                               "Currently searched

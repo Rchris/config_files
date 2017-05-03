@@ -15,11 +15,7 @@
 
 PATH="/usr/local/bin:$PATH"
 
-export PATH=$PATH:$HOME/code/DEBU/scripts
-export PATH=$PATH:$HOME/code/DEBU/repo
-export PATH=$PATH:$HOME/code/lumberjack
-export PATH=$PATH:$HOME/code/hourglass
-export PATH=$PATH:/opt/toolchains/clang-format-3.7
+export PATH=$PATH:$HOME/devel/scripts
 
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
 

@@ -25,6 +25,7 @@ alias lsgrep='ls -alF | grep '
 alias f='find . -iname '
 alias g='ps aux | grep '
 alias p='readlink -f '
+alias i='dpkg -l | grep '
 
 alias man='man -P most'
 

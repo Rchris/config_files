@@ -4,11 +4,16 @@ curl -so ~/.vim/autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
 # Next you need to add this to your ~/.vimrc:
+sudo apt install vim-pathogen
+
 execute pathogen#infect()
 
 git clone https://github.com/scrooloose/syntastic.git
 git clone https://github.com/Valloric/YouCompleteMe.git
 git submodule update --init --recursive
+sudo apt-get install build-essential cmake
+sudo apt-get install python-dev python3-dev
+./install.py --clang-completer
 sudo aptitude install libclang1-3.4
 #git clone https://github.com/wincent/Command-T.git
 git clone https://github.com/vim-scripts/vcscommand.vim.git
@@ -20,11 +25,14 @@ git clone https://github.com/justinmk/vim-syntax-extra.git
 git clone https://github.com/yssl/QFEnter.git
 git clone https://github.com/sk1418/QFGrep.git
 git clone --recursive http://github.com/davidhalter/jedi-vim
+cd  jedi-vim
+git submodule update --init
 git clone https://github.com/Shougo/unite.vim.git
 git clone https://github.com/airblade/vim-gitgutter.git
 git clone https://github.com/nathanaelkane/vim-indent-guides.git
 git clone https://github.com/mbbill/undotree.git
 git clone https://github.com/bling/vim-airline.git
+git clone https://github.com/vim-airline/vim-airline-themes.git
 git clone https://github.com/rking/ag.vim.git
 git clone https://github.com/gregsexton/gitv.git
 

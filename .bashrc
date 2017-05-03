@@ -165,16 +165,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-
-export PATH=$PATH:/opt/android-studio/sdk/platform-tools
-export PATH=$PATH:$HOME/code/DEBU/repo
-export PATH=$PATH:/opt/android-studio-0-8-0/sdk/tools
-export PATH=$PATH:/opt/android-ndk-r10c
-export PATH=$PATH:$HOME/code/DEBU/scripts
-export PATH=$PATH:$HOME/code/lumberjack
-export PATH=$PATH:$HOME/code/hourglass
-
-
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
 
 # Use pigmentize with less

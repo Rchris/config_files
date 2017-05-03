@@ -40,22 +40,23 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # audio
-bindsym XF86AudioMedia exec spotify
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
-bindsym XF86AudioMute exec amixer -q set Master toggle
+#bindsym XF86AudioMedia exec spotify
+#bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+#bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
+#bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # Calculator
-bindsym XF86Calculator exec gnome-calculator
+#bindsym XF86Calculator exec gnome-calculator
 
 # Print screen
-bindsym XF86 exec xfce4-screenshooter
+#bindsym XF86 exec xfce4-screenshooter
 
 # Shutdown
-bindsym XF86PowerOff exec--no-startup-id systemctl poweroff -i, mode "default"
+#bindsym XF86PowerOff exec--no-startup-id systemctl poweroff -i, mode "default"
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -b -l 10 -i
+bindsym $mod+d exec j4-dmenu-desktop --dmenu="dmenu -i -l 10" --term="i3-sensible-terminal"
+#bindsym $mod+d exec dmenu_run -b -l 10 -i
 #bindsym $mod+d exec python ~/scripts/dmenu.py
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -175,16 +176,16 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
 # workspace screens
-workspace 1 output DP-1
-workspace 2 output DP-1
-workspace 3 output DP-1
-workspace 4 output DP-1
-workspace 5 output DP-2
-workspace 6 output DP-2
-workspace 7 output DP-2
-workspace 8 output DP-2
-workspace 9 output LVDS-1
-workspace 10 output LVDS-1
+#workspace 1 output DP-1
+#workspace 2 output DP-1
+#workspace 3 output DP-1
+#workspace 4 output DP-1
+#workspace 5 output DP-2
+#workspace 6 output DP-2
+#workspace 7 output DP-2
+#workspace 8 output DP-2
+#workspace 9 output LVDS-1
+#workspace 10 output LVDS-1
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -226,28 +227,28 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status)
 # Big screen + laptop
 bar {
-        output LVDS-1
-        output DP-1
-        position top
+        #output HDMI-1
+        #output DP-1
+        #position bottom
+        #status_command i3status
         status_command "i3status --config ~/.i3/status.conf"
         #status_command i3status --config ~/.i3/status.conf | xmobar -o -t "%StdinReader%" -c "[Run StdinReader]"
 }
 
 # Small screen
-bar {
-        output DP-2
-        position top
-        status_command "py3status -i .i3/ --config ~/.i3/status_small.conf"
-        #status_command "i3status --config ~/.i3/status_small.conf"
-}
+#bar {
+#        output DP-2
+#        position top
+#        status_command "py3status -i .i3/ --config ~/.i3/status_small.conf"
+#        #status_command "i3status --config ~/.i3/status_small.conf"
+#}
 
 # Configuration starter script
 exec --no-startup-id sh ~/.i3/i3wm_setup.sh
 
 # Default applications
-#exec --no-startup-id i3-msg 'workspace 1; exec icedove;'
+#exec --no-startup-id i3-msg 'workspace 1; exec thunderbird;'
 exec --no-startup-id i3-msg 'workspace 1: mail'
 exec nm-applet
-exec icedove
-exec iceweasel
+exec thunderbird
 
