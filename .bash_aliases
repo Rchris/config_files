@@ -26,13 +26,13 @@ alias f='find . -iname '
 alias g='ps aux | grep '
 alias p='readlink -f '
 alias i='dpkg -l | grep '
+alias b='cd ..'
 
 alias man='man -P most'
 
 #alias grep='grep --color=always
 alias less='less -R'
 alias cat_lexer='pygmentize -l' # followed by lexer and file
-#alias pt='pygmentize'
 
 alias diff='colordiff'
 
@@ -46,28 +46,26 @@ alias memcheck_xml='valgrind --tool=memcheck --track-origins=yes --read-var-info
 
 alias clock='tty-clock -n -C 7 -c'
 
-alias lumberjack_adb='lumberjack --config ~/.config/lumberjack/settings/adb_logcat.json'
-alias lumberjack_stb='lumberjack --config ~/.config/lumberjack/settings/stb_log.json'
-
-alias b='cd ..'
-
 alias make_silent='make -j8 > /dev/null'
 alias make_install_silent='make install -j8 > /dev/null'
-
-alias current_test='$HOME/scripts/get_current_test.sh'
 
 alias current_spotify='xprop -name "Spotify Premium - Linux Preview" _NET_WM_ICON_NAME | cut -d "-" -f 2 | cut -d "\"" -f 1'
 
 alias adb_nfs='adb shell "/data/local/busybox mount -t nfs -o nolock -o async 192.168.2.1:/srv/nfs /data/local/nfs"'
 
-alias setup_android_build='source /opt/toolchains/android_L_setup.sh ; source build/envsetup.sh ; lunch aosp_sprint-userdebug'
+alias git_origin='git fetch origin ; git checkout origin/master'
+
+alias git_diff='$HOME/scripts/git_diff.py'
+
+alias apep8='find . -path ./virtualenv -prune -o -name "*.py" -exec autopep8 -i -a --max-line-length=80 {} \;'
+alias apep8f='autopep8 -i -a --max-line-length=80 '
 
 # Expected in purple
 # Passed and success in green
 # Failed in red
 # WARN in in bold blue
 # INFO: /i means ignore case
-function ctestColor()
+function color()
 {
   sed -u -e 's/.*\bExpected.*/\x1b[0;35m&\x1b[0m/i' \
       -e 's/.*\b*Error:.*/\x1b[0;31m&\x1b[0m/i' \
@@ -340,6 +338,20 @@ function for_all_folders()
     for d in ./*/ ; do (cd "$d" && pwd && "$@"); done
 }
 
+function format_json()
+{
+    python -m json.tool  $1 >! $1.json
+}
+
+function format_xml()
+{
+    cat $1 | xmllint --format - >! $1.xml
+}
+
+function apep8()
+{
+    find $1 -path ./virtualenv -prune -o -name "*.py" -exec autopep8 -i -a --max-line-length=80 {} \;
+}
 # or command: alias
 alias show_alias='pygmentize -l bash ~/.bash_aliases | less -R'
 

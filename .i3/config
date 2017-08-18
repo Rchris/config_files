@@ -121,12 +121,14 @@ set $WS1 1: mail
 set $WS2 2: www
 set $WS3 3: dev
 set $WS4 4: dev
-set $WS5 5: skype
+set $WS5 5: qtcreator
 set $WS6 6: dev
-set $WS7 7: jenkins
-set $WS8 8: music
-set $WS9 9: gerrit
-set $WS10 10: jenkins
+set $WS7 7: dev
+set $WS8 8: dev
+set $WS9 9: slack
+set $WS10 10: dev
+
+bindsym $mod+n exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace: '
 
 # switch to workspace
 bindsym $mod+F1 workspace $WS1
@@ -155,8 +157,8 @@ bindsym $mod+Shift+F10 move container to workspace $WS10
 # workspace assignment (use "xprop")
 assign [class="^Icedove$"] $WS1
 assign [class="^Iceweasel$"] $WS2
-assign [class="^Skype$"] $WS5
-assign [class="^Spotify$"] $WS8
+assign [class="^Skype$"] $WS9
+assign [class="^Spotify$"] $WS10
 
 # switch to previous workspace
 bindsym $mod+Tab workspace back_and_forth

@@ -63,7 +63,7 @@
 :let g:gitgutter_escape_grep = 1
 
 " Syntastic error color
-:hi SpellBad ctermfg=0 ctermbg=183
+:hi SpellBad ctermfg=30 ctermbg=235
 :hi SpellCap ctermfg=0 ctermbg=183
 
 " Enable CursorLine
@@ -72,7 +72,7 @@
 
 :highlight ColorColumn ctermbg=235 guibg=#2c2d27
 ":let &colorcolumn="80,".join(range(120,999),",")
-:set colorcolumn=101
+:set colorcolumn=81
 
 " Tabulation
 :set tabstop=4
@@ -165,6 +165,8 @@
 :highlight User9 ctermfg=255 ctermbg=52          guifg=#ffffff  guibg=#810085
 :highlight User0 ctermfg=255 ctermbg=52          guifg=#ffffff  guibg=#094afe
 
+:highlight Search cterm=NONE ctermfg=grey ctermbg=52
+
 " Fold
 :highlight Folded      ctermfg=Blue    ctermbg=Black       guibg=Blue   guifg=DarkGrey
 :highlight FoldColumn  ctermfg=White   ctermbg=DarkGrey    guibg=White  guifg=DarkGrey
@@ -235,7 +237,7 @@
 :nmap <F7> <C-]>
 
 " Open the current file with kate
-:nmap <F8> :! medit %<CR>
+:nmap <F8> :! gedit %<CR>
 
 ":nmap <F8> /\v^(\w+\s+)?\w+::\w+\(.*\)<CR>
 

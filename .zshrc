@@ -15,9 +15,11 @@
 
 PATH="/usr/local/bin:$PATH"
 
-export PATH=$PATH:$HOME/devel/scripts
+export PATH=$PATH:$HOME/scripts
 
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
+
+export PYLEARN2_DATA_PATH=$HOME/devel/pylearn2/data
 
 source ~/.bash_aliases
 
@@ -97,7 +99,7 @@ setopt  complete_aliases
 # expansion.)
 setopt  extended_glob
 # If this is set, zsh sessions will append their history list to the history file,
-# rather than replace it. Thus, multiple parallel zsh sessions will all have th 
+# rather than replace it. Thus, multiple parallel zsh sessions will all have th
 # new entries from their history lists added to the history file, in the order that
 # they exit. The file will still be periodically re-written to trim it when the
 # number of lines grows 20% beyond the value specified by $SAVEHIST.
@@ -108,11 +110,11 @@ setopt  hist_ignore_all_dups
 #  Remove command lines from the history list when the first character on the line
 #  is a space, or when one of the expanded aliases contains a leading space.
 setopt  hist_ignore_space
-# Save each command’s beginning timestamp (in seconds since the epoch) and 
+# Save each command’s beginning timestamp (in seconds since the epoch) and
 # the duration (in seconds) to the history file.
 setopt  extended_history
 # Whenever the user enters a line with history expansion, don’t execute the line
-# directly; instead, perform history expansion and reload the line into the 
+# directly; instead, perform history expansion and reload the line into the
 # editing buffer.
 setopt  hist_verify
 # This  option  both  imports new commands from the history file, and also
