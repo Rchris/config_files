@@ -55,10 +55,12 @@ alias adb_nfs='adb shell "/data/local/busybox mount -t nfs -o nolock -o async 19
 
 alias git_origin='git fetch origin ; git checkout origin/master'
 
-alias git_diff='$HOME/scripts/git_diff.py'
+alias git_diff='python3 $HOME/scripts/git_diff.py'
 
-alias apep8='find . -path ./virtualenv -prune -o -name "*.py" -exec autopep8 -i -a --max-line-length=80 {} \;'
-alias apep8f='autopep8 -i -a --max-line-length=80 '
+alias apep8='find . -path ./virtualenv -prune -o -name "*.py" -exec autopep8 -i -a --max-line-length=100 {} \;'
+alias apep8f='autopep8 -i -a --max-line-length=100 '
+
+alias weekly='vi $HOME/Documents/weekly/`date +"%Y"`/weekly_`date +"%U"`.txt'
 
 # Expected in purple
 # Passed and success in green
@@ -348,10 +350,22 @@ function format_xml()
     cat $1 | xmllint --format - >! $1.xml
 }
 
-function apep8()
+function docker_op_id()
 {
-    find $1 -path ./virtualenv -prune -o -name "*.py" -exec autopep8 -i -a --max-line-length=80 {} \;
+    docker ps | grep $2 | cut -d" " -f 1 | xargs docker $1
 }
+
+function docker_exec_id()
+{
+    docker ps | grep $1 | cut -d" " -f 1 | xargs -i docker exec -ti {} bash
+}
+
+function git_grep_history()
+{
+    git grep $1 $(git rev-list --all)
+}
+
+
 # or command: alias
 alias show_alias='pygmentize -l bash ~/.bash_aliases | less -R'
 

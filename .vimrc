@@ -54,6 +54,7 @@
 :let g:syntastic_python_python_exe = 'python'
 :let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'pep8']
 ":let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'pylint']
+:let g:syntastic_python_pep8_args='--max-line-length=100'
 " Disable syntastic for Java
 :let g:syntastic_java_checkers = ['']
 
@@ -72,7 +73,11 @@
 
 :highlight ColorColumn ctermbg=235 guibg=#2c2d27
 ":let &colorcolumn="80,".join(range(120,999),",")
-:set colorcolumn=81
+:set colorcolumn=101
+
+:autocmd FileType c setlocal cc=81
+:autocmd FileType cpp setlocal cc=81
+:autocmd FileType python setlocal cc=101
 
 " Tabulation
 :set tabstop=4

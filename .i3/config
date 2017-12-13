@@ -117,9 +117,9 @@ bindsym $mod+space focus mode_toggle
 
 ## Workspaces
 
-set $WS1 1: mail
+set $WS1 1: dev
 set $WS2 2: www
-set $WS3 3: dev
+set $WS3 3: mail
 set $WS4 4: dev
 set $WS5 5: qtcreator
 set $WS6 6: dev
@@ -155,10 +155,10 @@ bindsym $mod+Shift+F9 move container to workspace $WS9
 bindsym $mod+Shift+F10 move container to workspace $WS10
 
 # workspace assignment (use "xprop")
-assign [class="^Icedove$"] $WS1
-assign [class="^Iceweasel$"] $WS2
-assign [class="^Skype$"] $WS9
-assign [class="^Spotify$"] $WS10
+assign [class="^Thunderbird$"] $WS3
+#assign [class="^Iceweasel$"] $WS2
+#assign [class="^Skype$"] $WS9
+#assign [class="^Spotify$"] $WS10
 
 # switch to previous workspace
 bindsym $mod+Tab workspace back_and_forth
@@ -178,16 +178,16 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
 # workspace screens
-#workspace 1 output DP-1
-#workspace 2 output DP-1
-#workspace 3 output DP-1
-#workspace 4 output DP-1
-#workspace 5 output DP-2
-#workspace 6 output DP-2
-#workspace 7 output DP-2
-#workspace 8 output DP-2
-#workspace 9 output LVDS-1
-#workspace 10 output LVDS-1
+workspace 1 output  DVI-I-0
+workspace 2 output  DVI-I-0
+workspace 3 output  HDMI-0
+workspace 4 output  HDMI-0
+workspace 5 output  HDMI-0
+workspace 6 output  HDMI-0
+workspace 7 output  HDMI-0
+workspace 8 output  HDMI-0
+workspace 9 output  HDMI-0
+workspace 10 output HDMI-0
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -250,7 +250,7 @@ exec --no-startup-id sh ~/.i3/i3wm_setup.sh
 
 # Default applications
 #exec --no-startup-id i3-msg 'workspace 1; exec thunderbird;'
-exec --no-startup-id i3-msg 'workspace 1: mail'
+exec --no-startup-id i3-msg 'workspace 3: mail'
 exec nm-applet
 exec thunderbird
 
