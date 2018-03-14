@@ -22,11 +22,11 @@ alias lsheader='ls -alF | grep "\.h"'
 alias lscpp='ls -alF | grep "\.cpp"'
 alias lsgrep='ls -alF | grep '
 
+alias b='cd ..'
+alias i='dpkg -l | grep '
 alias f='find . -iname '
 alias g='ps aux | grep '
 alias p='readlink -f '
-alias i='dpkg -l | grep '
-alias b='cd ..'
 
 alias man='man -P most'
 
@@ -365,6 +365,25 @@ function git_grep_history()
     git grep $1 $(git rev-list --all)
 }
 
+function update_submodules()
+{
+    git submodule foreach git clean -xdf
+    git submodule foreach git reset --hard
+
+    git submodule init
+    git submodule sync --recursive
+    git submodule update --recursive --init
+}
+
+function view_readme()
+{
+    pandoc $1 | lynx -stdin
+}
+
+function c()
+{
+    octave-cli --eval "$@"
+}
 
 # or command: alias
 alias show_alias='pygmentize -l bash ~/.bash_aliases | less -R'
