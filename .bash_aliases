@@ -6,14 +6,14 @@ if [ -x /usr/bin/dircolors ]; then
 	alias grep='grep --color=always'
 fi
 
-alias ack="ack-grep -r --color-filename='magenta' --color-line='green' --color-match='bold red'"
-alias acki="ack-grep -r --color-filename='magenta' --color-line='green' --color-match='bold red' -i"
-
-# Cat hightligh
-alias cath="ack-grep --color-filename='magenta' --color-line='green' --color-match='bold red' -i --passthru"
-
 # alias ag="ag -r --color-filename='magenta' --color-line='green' --color-match='bold red'"
 # alias agi="ag -r --color-filename='magenta' --color-line='green' --color-match='bold red' -i"
+# alias ack="ack -r --color-filename='magenta' --color-line='green' --color-match='bold red'"
+alias ack="rg"
+alias diff="diff --color"
+# Cat hightligh
+#alias cath="ack --color-filename='magenta' --color-line='green' --color-match='bold red' -i --passthru"
+alias cath="rg -i --passthru"
 
 alias ll='ls -alF'
 alias lh='ls -alh'
@@ -62,6 +62,16 @@ alias apep8f='autopep8 -i -a --max-line-length=100 '
 
 alias weekly='vi $HOME/Documents/weekly/`date +"%Y"`/weekly_`date +"%U"`.txt'
 
+alias tmux-new='tmux new -s'
+alias tmux-attach='tmux -u -CC attach-session -t'
+alias tmux-delete='tmux kill-session -t'
+
+# or command: alias
+alias show_alias='pygmentize -l bash ~/.bash_aliases | less -R'
+
+# $ type function-name -> to print the function
+alias list-functions='grep "function" $HOME/.bash_aliases'
+
 # Expected in purple
 # Passed and success in green
 # Failed in red
@@ -69,21 +79,27 @@ alias weekly='vi $HOME/Documents/weekly/`date +"%Y"`/weekly_`date +"%U"`.txt'
 # INFO: /i means ignore case
 function color()
 {
-  sed -u -e 's/.*\bExpected.*/\x1b[0;35m&\x1b[0m/i' \
-      -e 's/.*\b*Error:.*/\x1b[0;31m&\x1b[0m/i' \
-      -e 's/.*\bPassed.*/\x1b[0;32m&\x1b[0m/' \
-      -e 's/.*\bSucces.*/\x1b[0;32m&\x1b[0m/' \
-      -e 's/.*\bError:.*/\x1b[0;31m&\x1b[0m/' \
-      -e 's/.*\bfailed.*/\x1b[0;31m&\x1b[0m/' \
-      -e 's/.*\bSegmentation.*/\x1b[0;36m&\x1b[0m/' \
-      -e 's/.*\bBEGINNING.*/\x1b[0;36m&\x1b[0m/' \
-      -e 's/.*\btimeout.*/\x1b[0;33m&\x1b[0m/' \
-      -e 's/.*\bTimeout.*/\x1b[0;33m&\x1b[0m/' \
-      -e 's/.*\bNot Run.*/\x1b[0;33m&\x1b[0m/' \
-      -e 's/.*\bInfo:.*/\x1b[0;34m&\x1b[0m/' \
-      -e 's/.*\ResourceWarning*/\x1b[1;34m&\x1b[0m/' \
-      -e 's/.*\bWARN.*/\x1b[1;34m&\x1b[0m/' \
-      -e 's/.*\bWarning.*/\x1b[1;34m&\x1b[0m/'
+    sed -u -e 's/.*\bCRD.*/\x1b[0;44m&\x1b[0m/' \
+           -e 's/.*\bSegmentation.*/\x1b[0;41m&\x1b[0m/I' \
+           -e 's/.*\bcore dumped.*/\x1b[0;41m&\x1b[0m/' \
+           -e 's/.*\bInfo:.*/\x1b[1;34m&\x1b[0m/I' \
+           -e 's/.*\bPassed Tests:.*/\x1b[1;34m&\x1b[0m/I' \
+           -e 's/.*\bWarning.*/\x1b[0;33m&\x1b[0m/I' \
+           -e 's/.*\bExpected.*/\x1b[0;35m&\x1b[0m/I' \
+           -e 's/.*\bError:.*/\x1b[0;31m&\x1b[0m/I' \
+           -e 's/.*\b\(ERR\).*/\x1b[0;31m&\x1b[0m/I' \
+           -e 's/.*\bundefined reference to.*/\x1b[0;31m&\x1b[0m/' \
+           -e 's/.*\bmultiple definition of.*/\x1b[0;31m&\x1b[0m/' \
+           -e 's/.*\bPassed Tests.*/\x1b[0;36m&\x1b[0m/I' \
+           -e 's/.*\bFailed.*/\x1b[0;31m&\x1b[0m/I' \
+           -e 's/.*\bPassed.*/\x1b[0;32m&\x1b[0m/I' \
+           -e 's/.*\bSuccess.*/\x1b[0;32m&\x1b[0m/I' \
+           -e 's/.*\bBEGINNING.*/\x1b[0;36m&\x1b[0m/' \
+           -e 's/.*\bTimeout.*/\x1b[0;33m&\x1b[0m/I' \
+           -e 's/.*\bexecuted.*/\x1b[0;94m&\x1b[0m/I' \
+           -e 's/.*\bASSERT.*/\x1b[0;33m&\x1b[0m/I' \
+           -e 's/.*\bNot Run.*/\x1b[0;33m&\x1b[0m/'
+#           -e 's/\*\*\*/\x1b[0;31m&\x1b[0m/' \
 }
 
 function aptColor()
@@ -128,12 +144,17 @@ function sedColor()
     sed -u -e 's/.*\b'$1'.*/\x1b'$style''$color'&\x1b[0m/'
 }
 
-function highlight()
+function highlight-line()
 {
     sed -u -e 's/.*\b'$1'.*/\x1b[1;33m&\x1b[0m/'
 }
 
-function replaceAllOccInFiles()
+function highlight-rg()
+{
+    rg --passthru $1
+}	
+
+function replace-in-files()
 {
     # Start from the current folder
 
@@ -154,23 +175,6 @@ function replaceAllOccInFiles()
 function monitor()
 {
   watch -c --no-title "$@"
-}
-
-function cthg()
-{
-   clear;
-   hg "$@" -l 15 | sedColor 'dev' yellow bold;
-}
-
-function ccthg()
-{
-   clear;
-   hg shortlog -l 30 | sedColor 'dev' yellow | sedColor $1 cyan;
-}
-
-function wcthg()
-{
-  watch -c --no-title cthg
 }
 
 function cl()
@@ -233,11 +237,6 @@ function rdesktopFull()
     rdesktop $1 -u $2 -g 1920x1170 -P -z -x lan -r sound:off
 }
 
-function hgdiffkate()
-{
-    hg diff $1 > tmp.diff && kate tmp.diff
-}
-
 function exit_code()
 {
     if [ $? -ne 0 ]
@@ -251,73 +250,9 @@ function pt()
   pygmentize $1 || cat $1
 }
 
-function build_androidL()
-{
-    # TODO verbose or not
-
-    time ./vendor/TODO/build/build_androidtv
-    if [ $? -ne 0 ]
-    then
-        notify-send -t 0 -u critical "Build Android L failed"
-        echo "Last step:"
-        cat vendor/TODO/build/build_log/current_step
-        echo "Logs folder:"
-        echo "vendor/TODO/build/build_log/log/"
-        multitail -cS gtv -iw "vendor/TODO/build/build_log/log/build_*" 1
-    else
-        notify-send -t 0 -u normal "Build Android L success"
-    fi;
-
-}
-
-function wizard_click_next()
-{
-    cd ~/code/DEBU/test-wizard/wizard/
-    android create uitest-project -n Wizard -t 3 -p .
-    ant clean build install
-    adb shell uiautomator runtest Wizard.jar -c com.TODO.wizard.Wizard
-}
-
-function test_android()
-{
-    python3 -u ../install/android_full_component_sdk_code/test/launch_tests.py --timeout 5000 --verbose --test $1 $2 | ctestColor
-}
-
-function test_android_all()
-{
-    python3 -u ../install/android_full_component_sdk_code/test/launch_tests.py --timeout 150 --output_on_failure --all --exclude "extended" | ctestColor
-}
-function test_linux()
-{
-    python3 -u ../install/linux_full_component_sdk_code/test/launch_tests.py --timeout 140 --output_on_failure --test $1 $2 | ctestColor
-}
-
-function test_linux_all()
-{
-    python3 -u ../install/linux_full_component_sdk_code/test/launch_tests.py --timeout 140 --output_on_failure --all --exclude "extended" | ctestColor
-}
-
 function man()
 {
     /usr/bin/man $* | col -b | /usr/bin/view -c 'set ft=man nomod nolist' -
-}
-
-function adb_root()
-{
-    adb connect $1 ; adb root ; adb connect $1 ; adb remount;
-    adb connect $1 ; adb root ; adb connect $1 ; adb remount;
-    adb connect $1 ; adb root ; adb connect $1 ; adb remount;
-    adb shell "setenforce 0" ; adb shell "getenforce";
-}
-
-function adb_push_ta()
-{
-    adb push $1 /system/etc/firmware/ta/$2 ; adb shell sync ;
-}
-
-function adb_push_lib()
-{
-    adb push $1 /vendor/lib/$2 ; adb shell sync ;
 }
 
 function ftype()
@@ -360,6 +295,12 @@ function docker_exec_id()
     docker ps | grep $1 | cut -d" " -f 1 | xargs -i docker exec -ti {} bash
 }
 
+function git-clean ()
+{
+    git clean -ffdx
+    git reset --hard
+}
+
 function git_grep_history()
 {
     git grep $1 $(git rev-list --all)
@@ -384,7 +325,3 @@ function c()
 {
     octave-cli --eval "$@"
 }
-
-# or command: alias
-alias show_alias='pygmentize -l bash ~/.bash_aliases | less -R'
-
